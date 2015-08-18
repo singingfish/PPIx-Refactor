@@ -1,6 +1,16 @@
 package PPIx::Refactor;
 use Moo;
 use Path::Tiny;
+BEGIN {
+    use File::Path;
+    use constant { CACHE => '/tmp/ppix-refactor_cache', };
+    our $cache = CACHE;
+    File::Path::mkpath($cache) unless -e CACHE;
+}
+
+use PPI;
+use PPI::Cache path => CACHE;
+use PPI::Find;
 
 =head1 NAME
 
@@ -12,10 +22,6 @@ our $VERSION = '0.01';
 
 
 =head1 SYNOPSIS
-
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
 
     use PPIx::Refactor;
     my $p = PPIx::Refactor->new(file => '...', search => 'RoleName|\&found',
@@ -36,6 +42,49 @@ has file => (
     }
 );
 
+has doc => (
+    is => 'ro',
+    lazy => 1,
+    default => sub {
+        my ($self) = @_;
+        return PPI::Document->new($self->file->stringify);
+    },
+);
+
+has ppi_find => (
+    is => 'ro',
+    # isa CodeRef
+    required => 1,
+);
+
+has writer => (
+    is => 'ro',
+    default => sub {},
+);
+
+has finds => (
+    is => 'ro',
+    lazy => 1,
+    default => sub {
+        my ($self) = @_;
+        my $find = PPI::Find->new($self->ppi_find);
+        my @results = $find->in($self->doc);
+        return \@results;
+    }
+);
+
+sub rewrite {
+    my ($self) = @_;
+    $self->writer->($self->finds);
+    $self->doc->save($self->file);
+}
+
+sub dump {
+    my ($self, $doc, $whitespace) = @_;
+    $whitespace ||=0;
+    my $dump = PPI::Dumper->new($doc, whitespace => $whitespace);
+    $dump->print;
+}
 
 
 =head1 METHODS
