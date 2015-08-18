@@ -36,7 +36,7 @@ This is a really simple module to make rewriting perl code via L<PPI>
 debugger friendly and easy.  See the test in
 L<t/refactor.t|https://github.com/singingfish/PPIx-Refactor/blob/master/t/refactor.t>
 of this distribution for a working example.  Pretty much all the real work
-happens in the coderef you set up in C< $p->ppi_find > and C< $p->writer >.
+happens in the coderef you set up in C<< $p->ppi_find >> and C<< $p->writer >>.
 
 NOTE L<PPI::Cache> is used to store a cached representation of the source
 parse in the system temp directory.
@@ -50,7 +50,7 @@ pain.
 =head2 TODO
 
 Would be nice to specify a rewriter via roles, and it would be nice to have
-$self in C< $p->ppi_find >.  On the other hand rewrite/refactoring code like
+$self in C<< $p->ppi_find >>.  On the other hand rewrite/refactoring code like
 this can either be simple throwaways, or really really complicated.  This
 code is so far optimised for the throwaway case.
 
