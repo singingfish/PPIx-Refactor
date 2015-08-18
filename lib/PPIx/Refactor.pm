@@ -47,9 +47,8 @@ Kieren Diment, C<< <zarquon at cpan.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-ppix-refactor at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=PPIx-Refactor>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests via github:
+L<https://github.com/singingfish/PPIx-Refactor/issues>.
 
 =head1 SUPPORT
 

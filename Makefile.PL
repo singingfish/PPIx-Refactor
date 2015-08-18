@@ -20,12 +20,16 @@ WriteMakefile(
     PREREQ_PM => {
         'Moo' => 0,
         'strictures' => 2,
+        'PPI' => 0,
+        'PPIx::Shorthand' => 0,
+        'PPI::Dumper' => 0,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'PPIx-Refactor-*' },
     META_MERGE => {
         'meta-spec' => { version => 2 },
          resources => {
+             bugtracker => 'https://github.com/singingfish/PPIx-Refactor/issues',
              repository => {
                  type => 'git',
                  url  => 'git@github.com:singingfish/PPIx-Refactor.git',
