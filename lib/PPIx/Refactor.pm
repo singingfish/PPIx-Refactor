@@ -18,7 +18,9 @@ PPIx::Refactor - Hooks for refactoring perl via L<PPI>
 
 =cut
 
-our $VERSION = '0.01';
+
+our $VERSION = '0.03';
+
 
 
 =head1 SYNOPSIS
@@ -39,7 +41,7 @@ of this distribution for a working example.  Pretty much all the real work
 happens in the coderef you set up in C<< $p->ppi_find >> and C<< $p->writer >>.
 
 NOTE L<PPI::Cache> is used to store a cached representation of the source
-parse in the system temp directory.
+parse in C</tmp/pppix-refactor_cache>
 
 =head2 RATIONALE
 
@@ -101,7 +103,7 @@ has ppi_find => (
 
 =head3 writer
 
-optional coderef with which to rewrite the code
+optional coderef with which to rewrite the code.
 
 =cut
 
@@ -131,7 +133,8 @@ has finds => (
 
 =head2 $self->rewrite
 
-Worker sub that rewrites the code
+Worker sub that rewrites the code.  Operates on what it finds in
+C<<$self->finds>>
 
 =cut
 
@@ -143,7 +146,8 @@ sub rewrite {
 
 =head2 $self->dump($elem, $whitespace);
 
-For debugging.  Prints a dump of the passed in element.  If whitespace is true it will include whitespace in the dump.  Defaults to false
+For debugging.  Prints a dump of the passed in element.  If C<$whitespace>
+is true it will include whitespace in the dump.  Defaults to false.
 
 =cut
 
@@ -179,4 +183,4 @@ This program is free software; you can redistribute it and/or modify it
 under the same terms as perl itself.
 =cut
 
-1; 
+1;

@@ -23,6 +23,7 @@ WriteMakefile(
         'PPI' => 0,
         'PPIx::Shorthand' => 0,
         'PPI::Dumper' => 0,
+        'Path::Tiny' => 0,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'PPIx-Refactor-*' },
