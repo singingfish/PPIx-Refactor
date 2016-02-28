@@ -1,5 +1,8 @@
 Revision history for PPIx-Refactor
 
+0.02    Mon 29 Feb 2016 08:17 EST
+        Added examples dir and changed internal interface slightly for working on prior results better.
+
 0.01    Tue 18 Aug 2015 17:34:34 EST
         Initial Implementation
 

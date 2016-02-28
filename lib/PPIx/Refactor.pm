@@ -18,14 +18,18 @@ PPIx::Refactor - Hooks for refactoring perl via L<PPI>
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
 
     use PPIx::Refactor;
     my $p = PPIx::Refactor->new(file => '/path/to/perl/code/file.pl',
-                                ppi_find => \&found,
+                                ppi_find => sub {
+                                    my ($elem, $doc) = @_;
+                                    return 1 if $elem->class eq 'PPI::Statement::Sub',
+                                    return 0;
+                                }
                                 [ writer => \&found ]);
     my $finds = $p->finds; # for examining them interactively
     $p->rewrite; # rewrites the file in place.  You are using version control yes?
@@ -37,6 +41,10 @@ debugger friendly and easy.  See the test in
 L<t/refactor.t|https://github.com/singingfish/PPIx-Refactor/blob/master/t/refactor.t>
 of this distribution for a working example.  Pretty much all the real work
 happens in the coderef you set up in C<< $p->ppi_find >> and C<< $p->writer >>.
+
+For an example of a simple script for checking statements in code for being
+syntactically identical (i.e. a crude copypasta detector) see C<
+similar_statements.pl > in the examples directory of the distribution.
 
 NOTE L<PPI::Cache> is used to store a cached representation of the source
 parse in the system temp directory.
@@ -86,7 +94,24 @@ has doc => (
     },
 );
 
-=head3 ppi_find 
+=head3 element
+
+If you're using prior finds (e.g. subroutines you're trying to analyse)
+you'll want to pass an element into new rather than a doc.  Element
+defaults to the document you passed in.
+
+=cut
+
+has element => (
+    is => 'ro',
+    lazy => 1,
+    builder => sub {
+        $DB::single=1;
+        $_[0]->doc;
+    },
+);
+
+=head3 ppi_find
 
 required coderef with which to find the elements of interest
 
@@ -122,7 +147,7 @@ has finds => (
     default => sub {
         my ($self) = @_;
         my $find = PPI::Find->new($self->ppi_find);
-        my @results = $find->in($self->doc);
+        my @results = $find->in($self->element);
         return \@results;
     }
 );
@@ -138,12 +163,13 @@ Worker sub that rewrites the code
 sub rewrite {
     my ($self) = @_;
     $self->writer->($self->finds);
-    $self->doc->save($self->file);
+    $self->element->save($self->file);
 }
 
 =head2 $self->dump($elem, $whitespace);
 
-For debugging.  Prints a dump of the passed in element.  If whitespace is true it will include whitespace in the dump.  Defaults to false
+For debugging.  Prints a dump of the passed in element.  If whitespace is
+true it will include whitespace in the dump.  Defaults to false
 
 =cut
 
