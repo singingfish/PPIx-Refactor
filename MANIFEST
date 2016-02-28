@@ -1,7 +1,11 @@
 Changes
+examples/lib/SomePackage.pm
+examples/similar_statements.pl
 lib/PPIx/Refactor.pm
 Makefile.PL
 MANIFEST			This list of files
+PPIx-Refactor-0.02.tar.gz
+PPIx-Refactor-0.04.tar.gz
 README
 README.pod
 t/00-load.t
