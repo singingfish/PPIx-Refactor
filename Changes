@@ -1,5 +1,8 @@
 Revision history for PPIx-Refactor
 
+0.06
+        Hide examples/lib/SomePackage.pm from pause.
+
 0.05    Mon 29 Feb 2016 08:29 EST
         Added examples dir and changed internal interface slightly for working on prior results better.
 

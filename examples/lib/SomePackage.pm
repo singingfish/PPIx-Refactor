@@ -1,4 +1,5 @@
-package SomePackage;
+package
+    SomePackage;
 
 sub first {
     my ($self, $args) = @_;
