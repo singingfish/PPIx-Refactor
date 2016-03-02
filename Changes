@@ -1,5 +1,7 @@
 Revision history for PPIx-Refactor
 
+0.07    More fixes for cpan dist (remove mymeta from manifest)
+
 0.06
         Hide examples/lib/SomePackage.pm from pause.
         Manifest.skip file
