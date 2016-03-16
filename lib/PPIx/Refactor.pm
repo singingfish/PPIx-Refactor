@@ -1,4 +1,6 @@
 package PPIx::Refactor;
+
+
 use Moo;
 use Path::Tiny;
 BEGIN {
@@ -15,10 +17,6 @@ use PPI::Find;
 =head1 NAME
 
 PPIx::Refactor - Hooks for refactoring perl via L<PPI>
-
-=cut
-
-our $VERSION = '0.06';
 
 =head1 SYNOPSIS
 
