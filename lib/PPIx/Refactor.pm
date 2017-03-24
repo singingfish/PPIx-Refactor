@@ -87,7 +87,7 @@ has doc => (
     lazy => 1,
     default => sub {
         my ($self) = @_;
-        return PPI::Document->new($self->file->stringify);
+        return PPI::Document::File->new($self->file->stringify);
     },
 );
 
@@ -103,7 +103,6 @@ has element => (
     is => 'ro',
     lazy => 1,
     builder => sub {
-        $DB::single=1;
         $_[0]->doc;
     },
 );

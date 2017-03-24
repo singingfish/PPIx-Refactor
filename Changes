@@ -1,5 +1,9 @@
 Revision history for PPIx-Refactor
 
+0.08
+        Dzil improvemnts
+        Remove stray debugging symbol
+        Use PPI::Document::File so indexing/location works correctly.
         Add manifest.skip so README.pod is not distributed
 
 0.07    More fixes for cpan dist (remove mymeta from manifest)
